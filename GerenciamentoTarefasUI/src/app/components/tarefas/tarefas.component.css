@@ -1,0 +1,42 @@
+.tarefas-container table {
+  width: 100%; /* Faz a tabela ocupar 100% da largura disponível */
+  border: 1px solid #dee2e6;
+}
+
+.tarefas-container th,
+.tarefas-container td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: center;
+}
+
+.tarefas-container thead th {
+  background-color: #343a40;
+  color: #fff;
+}
+.tarefas-container table {
+  width: 100%;
+  border: 1px solid #dee2e6;
+}
+
+.tarefas-container th,
+.tarefas-container td {
+  border: 1px solid #dee2e6;
+  padding: 8px;
+  text-align: center;
+}
+
+.tarefas-container thead th {
+  background-color: #343a40;
+  color: #fff;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn i {
+  margin-right: 5px;
+}
