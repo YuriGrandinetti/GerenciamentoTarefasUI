@@ -1,6 +1,37 @@
 <div class="tarefas-container container-fluid mt-5">
   <h2 class="text-center">Minhas Tarefas</h2>
 
+  <div class="tarefas-header">
+    <!-- Botão para abrir o modal -->
+    <button class="btn btn-primary" (click)="openModal()">
+      <i class="fa fa-plus"></i> Nova Tarefa
+    </button>
+  </div>
+
+  <!-- Modal para cadastrar nova tarefa -->
+  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}" style="display: {{ showModal ? 'block' : 'none' }};">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cadastrar Nova Tarefa</h5>
+          <button type="button" class="close" (click)="closeModal()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulário de cadastro de tarefa -->
+          <input type="text" [(ngModel)]="novaTarefaDescricao" placeholder="Descrição da Tarefa" class="form-control">
+          <input type="date" [(ngModel)]="novaTarefaDataVencimento" class="form-control mt-2">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="cadastrarTarefa()">Salvar</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Verifica se há tarefas -->
   <div *ngIf="tarefas && tarefas.length > 0; else noTarefas">
     <!-- Cria uma tabela para exibir as tarefas -->

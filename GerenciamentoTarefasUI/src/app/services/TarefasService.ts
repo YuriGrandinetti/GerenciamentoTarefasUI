@@ -12,9 +12,9 @@ export class TarefasService {
   constructor(private http: HttpClient) { }
 
   // Método para obter as tarefas do usuário logado
-  getTarefas(): Observable<any[]> {
-    const token = localStorage.getItem('authToken'); // Obter o token JWT do localStorage
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any[]>(this.apiUrl, { headers });
-  }
+  //getTarefas(): Observable<any[]> {
+  //  const token = localStorage.getItem('authToken'); // Obter o token JWT do localStorage
+  //  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  //  return this.http.get<any[]>(this.apiUrl, { headers });
+ // }
 }
