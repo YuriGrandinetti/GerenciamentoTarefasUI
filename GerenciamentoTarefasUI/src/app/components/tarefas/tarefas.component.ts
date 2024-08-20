@@ -22,6 +22,11 @@ export class TarefasComponent implements OnInit {
   tarefas: Tarefa[] = [];
   tarefaSelecionada: Tarefa = { id: 0, descricao: '', status: '', dataVencimento: '', usuarioid: 0 };
 
+  // Propriedades para pesquisa
+  pesquisaDescricao: string = '';
+  pesquisaStatus: string = '';
+  pesquisaData: string = '';
+
   showModal: boolean = false;
   novaTarefaDescricao: string = '';
   novaTarefaDataVencimento: string = '';
@@ -33,14 +38,27 @@ export class TarefasComponent implements OnInit {
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
-      this.tarefasService.getTarefas().subscribe(
-        (data: Tarefa[]) => (this.tarefas = data),
-        (error) => console.error('Erro ao obter tarefas do usuário logado:', error)
-      );
+      this.carregarTarefas();
     }
   }
 
+  carregarTarefas() {
+    this.tarefasService.getTarefas().subscribe(
+      (data: Tarefa[]) => (this.tarefas = data),
+      (error) => console.error('Erro ao obter tarefas do usuário logado:', error)
+    );
+  }
 
+  pesquisarTarefas() {
+    this.tarefasService.pesquisarTarefas(this.pesquisaDescricao, this.pesquisaStatus, this.pesquisaData).subscribe(
+      (data: Tarefa[]) => {
+        this.tarefas = data;
+      },
+      (error) => {
+        console.error('Erro ao pesquisar tarefas:', error);
+      }
+    );
+  }
 
   cadastrarTarefa() {
     const token = localStorage.getItem('authToken');
@@ -131,12 +149,7 @@ export class TarefasComponent implements OnInit {
           console.log('Tarefa editada:', response);
 
           // Recarrega as tarefas do usuário logado
-          this.tarefasService.getTarefas().subscribe(
-            (data: Tarefa[]) => {
-              this.tarefas = data;
-            },
-            (error) => console.error('Erro ao recarregar tarefas:', error)
-          );
+          this.carregarTarefas();
 
           // Fecha o modal
           const modalElement = document.getElementById('editarTarefaModal');
@@ -151,7 +164,6 @@ export class TarefasComponent implements OnInit {
       );
     }
   }
-
 
   excluirTarefa(tarefa: Tarefa): void {
     if (isPlatformBrowser(this.platformId)) {

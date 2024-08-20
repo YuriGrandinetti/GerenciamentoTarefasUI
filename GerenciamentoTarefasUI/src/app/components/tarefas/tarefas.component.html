@@ -1,7 +1,45 @@
 <div class="tarefas-container container-fluid mt-5">
-  <h2 class="text-center">Minhas Tarefas</h2>
+  <h2 class="text-center">Tarefas</h2>
 
-  <div class="tarefas-header">
+  <!-- Panel de Pesquisa -->
+  <div class="card mb-4">
+    <div class="card-header">
+      Pesquisa de Tarefas
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <!-- Campo de pesquisa de Descrição -->
+        <div class="col-md-4">
+          <input type="text" class="form-control" placeholder="Descrição" [(ngModel)]="pesquisaDescricao" />
+        </div>
+
+        <!-- Combo de Status -->
+        <div class="col-md-3">
+          <select class="form-control" [(ngModel)]="pesquisaStatus">
+            <option value="">Todos os Status</option>
+            <option value="Pendente">Pendente</option>
+            <option value="EmProgresso">Em Progresso</option>
+            <option value="Concluida">Concluída</option>
+            <option value="Cancelada">Cancelada</option>
+          </select>
+        </div>
+
+        <!-- Campo de Data -->
+        <div class="col-md-3">
+          <input type="date" class="form-control" [(ngModel)]="pesquisaData" />
+        </div>
+
+        <!-- Botão de Pesquisa -->
+        <div class="col-md-2">
+          <button class="btn btn-primary w-100" (click)="pesquisarTarefas()">
+            <i class="fa fa-search"></i> Pesquisar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tarefas-header mb-3">
     <!-- Botão para abrir o modal -->
     <button class="btn btn-primary" (click)="openModal()">
       <i class="fa fa-plus"></i> Nova Tarefa
@@ -30,7 +68,6 @@
       </div>
     </div>
   </div>
-
 
   <!-- Verifica se há tarefas -->
   <div *ngIf="tarefas && tarefas.length > 0; else noTarefas">

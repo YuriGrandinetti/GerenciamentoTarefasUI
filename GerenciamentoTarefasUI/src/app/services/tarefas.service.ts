@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Tarefa } from './tarefa.model';
 
@@ -50,4 +50,18 @@ export class TarefasService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<Tarefa>(this.apiUrl, tarefa, { headers });
   }
+
+  pesquisarTarefas(descricao: string, status: string, data: string): Observable<Tarefa[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    // Monta a URL com os parâmetros de consulta
+    let params = new HttpParams();
+    if (descricao) params = params.set('descricao', descricao);
+    if (status) params = params.set('status', status);
+    if (data) params = params.set('data', data);
+
+    return this.http.get<Tarefa[]>(`${this.apiUrl}/pesquisar`, { headers, params });
+  }
+
 }
